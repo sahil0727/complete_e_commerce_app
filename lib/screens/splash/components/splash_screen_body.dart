@@ -1,5 +1,7 @@
 import 'package:complete_e_commerce_app/constants.dart';
+import 'package:complete_e_commerce_app/screens/sign_in/sign_in_screen.dart';
 import 'package:complete_e_commerce_app/size_config.dart';
+import 'package:flutter/cupertino.dart';
 import '../../../components/default_button.dart';
 import '../components/splash_component.dart';
 import 'package:flutter/material.dart';
@@ -70,7 +72,9 @@ class _SplashScreenBodyState extends State<SplashScreenBody> {
                     const Spacer(flex: 3),
                     DefaultButton(
                       text: 'Continue',
-                      press: () {},
+                      press: () {
+                        Navigator.pushNamed(context, SignInScreen.routeName);
+                      },
                     ),
                     const Spacer(),
                   ],

@@ -24,7 +24,7 @@ class DefaultButton extends StatelessWidget {
             const StadiumBorder(),
           ),
         ),
-        onPressed: press(),
+        onPressed: () => press(),
         child: Text(
           text,
           style: TextStyle(

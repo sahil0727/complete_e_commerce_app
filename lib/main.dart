@@ -1,6 +1,6 @@
-import 'package:complete_e_commerce_app/constants.dart';
 import 'package:complete_e_commerce_app/routs.dart';
 import 'package:complete_e_commerce_app/screens/splash/splash_screen.dart';
+import 'package:complete_e_commerce_app/theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -16,18 +16,28 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Xyron',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-        fontFamily: 'Muli',
-        textTheme: const TextTheme(
-          bodyText1: TextStyle(color: kTextColor),
-          bodyText2: TextStyle(color: kTextColor),
-        ),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: theme(),
       // home: const SplashScreen(),
       initialRoute: SplashScreen.routeName,
       routes: routes,
+
+      /* beloved code is used for navigate as cupertinoRoute  also
+       we don't need routes: routes as above mention
+       */
+
+      // onGenerateRoute: (RouteSettings settings) {
+      //   switch (settings.name) {
+      //     case '/splash': /* SplashScreen.routeName */
+      //       return CupertinoPageRoute(
+      //           builder: (_) => const SplashScreen(), settings: settings);
+      //     case SignInScreen.routeName:
+      //       return CupertinoPageRoute(
+      //           builder: (_) => const SignInScreen(), settings: settings);
+      //     default:
+      //       return CupertinoPageRoute(
+      //           builder: (_) => const SplashScreen(), settings: settings);
+      //   }
+      // },
     );
   }
 }
