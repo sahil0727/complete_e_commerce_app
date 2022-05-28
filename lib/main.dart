@@ -1,4 +1,5 @@
 import 'package:complete_e_commerce_app/constants.dart';
+import 'package:complete_e_commerce_app/routs.dart';
 import 'package:complete_e_commerce_app/screens/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Xyron',
       theme: ThemeData(
         scaffoldBackgroundColor: Colors.white,
         fontFamily: 'Muli',
@@ -24,7 +25,9 @@ class MyApp extends StatelessWidget {
         ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: SplashScreen(),
+      // home: const SplashScreen(),
+      initialRoute: SplashScreen.routeName,
+      routes: routes,
     );
   }
 }

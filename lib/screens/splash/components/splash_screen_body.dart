@@ -1,3 +1,6 @@
+import 'package:complete_e_commerce_app/constants.dart';
+import 'package:complete_e_commerce_app/size_config.dart';
+import '../../../components/default_button.dart';
 import '../components/splash_component.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +26,7 @@ class _SplashScreenBodyState extends State<SplashScreenBody> {
       'image': 'assets/images/splash_3.png'
     },
   ];
-
+  int currentPage = 0;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -34,6 +37,11 @@ class _SplashScreenBodyState extends State<SplashScreenBody> {
             Expanded(
               flex: 3,
               child: PageView.builder(
+                onPageChanged: (value) {
+                  setState(() {
+                    currentPage = value;
+                  });
+                },
                 physics: const BouncingScrollPhysics(),
                 itemCount: splashData.length,
                 scrollDirection: Axis.horizontal,
@@ -43,12 +51,47 @@ class _SplashScreenBodyState extends State<SplashScreenBody> {
                 ),
               ),
             ),
-            const Expanded(
+            Expanded(
               flex: 2,
-              child: SizedBox(),
-            )
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: getProportionateScreenWidth(20),
+                ),
+                child: Column(
+                  children: [
+                    const Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        splashData.length,
+                        (index) => buildDot(index: index),
+                      ),
+                    ),
+                    const Spacer(flex: 3),
+                    DefaultButton(
+                      text: 'Continue',
+                      press: () {},
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
+      ),
+    );
+  }
+
+  AnimatedContainer buildDot({int? index}) {
+    return AnimatedContainer(
+      duration: kAnimationDuration,
+      margin: const EdgeInsets.only(right: 5),
+      width: index == currentPage ? 35 : 6,
+      height: 6,
+      decoration: BoxDecoration(
+        color: currentPage == index ? kPrimaryColor : const Color(0xffd8d8d8),
+        borderRadius: BorderRadius.circular(3),
       ),
     );
   }
