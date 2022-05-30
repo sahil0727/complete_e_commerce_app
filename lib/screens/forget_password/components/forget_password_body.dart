@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:complete_e_commerce_app/components/default_button.dart';
 import 'package:complete_e_commerce_app/components/form_error.dart';
 import 'package:complete_e_commerce_app/components/not_account_text.dart';
@@ -85,16 +87,25 @@ class _ForgetPassFormState extends State<ForgetPassForm> {
             validator: (value) {
               if ((value == null || value.isEmpty) &&
                   !erorrs.contains(kEmailNullError)) {
+                log("if part : $value");
                 setState(() {
                   erorrs.add(kEmailNullError);
                 });
+                return "";
               } else if (!emailValidatorRegExp.hasMatch(value!) &&
                   !erorrs.contains(kInvalidEmailError)) {
+                log("Else part : $value");
                 setState(() {
                   erorrs.add(kInvalidEmailError);
                 });
+                return "";
+              } else if (value.isEmpty) {
+                return '';
+              } else if (!emailValidatorRegExp.hasMatch(value)) {
+                return '';
+              } else {
+                return null;
               }
-              return null;
             },
             keyboardType: TextInputType.emailAddress,
             decoration: const InputDecoration(
@@ -112,6 +123,7 @@ class _ForgetPassFormState extends State<ForgetPassForm> {
           DefaultButton(
             text: 'Continue',
             press: () {
+              log('${_formKey.currentState!.validate()}');
               if (_formKey.currentState!.validate()) {
                 // do any thing here
               }

@@ -1,4 +1,5 @@
-import 'package:complete_e_commerce_app/screens/login_success/login_success_screen.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 
 import '../../../components/custom_suffix_icon.dart';
@@ -7,6 +8,7 @@ import '../../../components/form_error.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 import '../../forget_password/forget_password_screen.dart';
+import '../../login_success/login_success_screen.dart';
 
 class SignForm extends StatefulWidget {
   const SignForm({Key? key}) : super(key: key);
@@ -47,12 +49,12 @@ class _SignFormState extends State<SignForm> {
               const Spacer(),
               TextButton(
                 onPressed: () {
-                  Navigator.pushNamed(
-                      context, ForgetPasswordScreen.routeName);
+                  Navigator.pushNamed(context, ForgetPasswordScreen.routeName);
                 },
                 child: const Padding(
                   padding: EdgeInsets.symmetric(
-                    horizontal: 7,vertical: 3,
+                    horizontal: 7,
+                    vertical: 3,
                   ),
                   child: Text(
                     'Forget Password',
@@ -64,7 +66,7 @@ class _SignFormState extends State<SignForm> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   backgroundColor: Colors.black12,
-                primary: kPrimaryColor,
+                  primary: kPrimaryColor,
                 ),
               ),
             ],
@@ -75,6 +77,7 @@ class _SignFormState extends State<SignForm> {
           DefaultButton(
             text: 'Continue',
             press: () {
+              log("${_formKey.currentState!.validate()}");
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 Navigator.pushNamed(context, LoginSuccessScreen.routeName);
@@ -106,14 +109,19 @@ class _SignFormState extends State<SignForm> {
           setState(() {
             erorrs.add(kPassNullError);
           });
-          return null;
+          return '';
         } else if (value!.length < 8 && !erorrs.contains(kShortPassError)) {
           setState(() {
             erorrs.add(kShortPassError);
           });
+          return '';
+        } else if (value.length < 8) {
+          return '';
+        } else if (value.isEmpty) {
+          return '';
+        } else {
           return null;
         }
-        return null;
       },
       obscureText: true,
       decoration: const InputDecoration(
@@ -135,7 +143,6 @@ class _SignFormState extends State<SignForm> {
           setState(() {
             erorrs.remove(kEmailNullError);
           });
-
         } else if (emailValidatorRegExp.hasMatch(value) &&
             erorrs.contains(kInvalidEmailError)) {
           setState(() {
@@ -149,15 +156,20 @@ class _SignFormState extends State<SignForm> {
           setState(() {
             erorrs.add(kEmailNullError);
           });
-          return null;
+          return "";
         } else if (!emailValidatorRegExp.hasMatch(value!) &&
             !erorrs.contains(kInvalidEmailError)) {
           setState(() {
             erorrs.add(kInvalidEmailError);
           });
+          return "";
+        } else if (value.isEmpty) {
+          return '';
+        } else if (!emailValidatorRegExp.hasMatch(value)) {
+          return '';
+        } else {
           return null;
         }
-        return null;
       },
       keyboardType: TextInputType.emailAddress,
       decoration: const InputDecoration(
