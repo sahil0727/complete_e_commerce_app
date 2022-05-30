@@ -47,6 +47,7 @@ AppBarTheme appBarTheme() {
     titleTextStyle: TextStyle(
       color: Color(0xff8b8b8b),
       fontSize: 18,
+      fontFamily: 'Muli',
     ),
   );
 }

@@ -1,3 +1,4 @@
+import 'package:complete_e_commerce_app/screens/login_success/login_success_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../components/custom_suffix_icon.dart';
@@ -5,6 +6,7 @@ import '../../../components/default_button.dart';
 import '../../../components/form_error.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
+import '../../forget_password/forget_password_screen.dart';
 
 class SignForm extends StatefulWidget {
   const SignForm({Key? key}) : super(key: key);
@@ -18,6 +20,7 @@ class _SignFormState extends State<SignForm> {
   late List<String> erorrs = [];
   late String email, password;
   bool remember = false;
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -42,10 +45,28 @@ class _SignFormState extends State<SignForm> {
               ),
               const Text('Remember me'),
               const Spacer(),
-              const Text(
-                'Forget Password',
-                style: TextStyle(decoration: TextDecoration.underline),
-              )
+              TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(
+                      context, ForgetPasswordScreen.routeName);
+                },
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 7,vertical: 3,
+                  ),
+                  child: Text(
+                    'Forget Password',
+                    style: TextStyle(decoration: TextDecoration.underline),
+                  ),
+                ),
+                style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  backgroundColor: Colors.black12,
+                primary: kPrimaryColor,
+                ),
+              ),
             ],
           ),
           SizedBox(height: getProportionateScreenHeight(20)),
@@ -56,6 +77,7 @@ class _SignFormState extends State<SignForm> {
             press: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
+                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
               }
             },
           )
@@ -84,10 +106,12 @@ class _SignFormState extends State<SignForm> {
           setState(() {
             erorrs.add(kPassNullError);
           });
+          return null;
         } else if (value!.length < 8 && !erorrs.contains(kShortPassError)) {
           setState(() {
             erorrs.add(kShortPassError);
           });
+          return null;
         }
         return null;
       },
@@ -111,6 +135,7 @@ class _SignFormState extends State<SignForm> {
           setState(() {
             erorrs.remove(kEmailNullError);
           });
+
         } else if (emailValidatorRegExp.hasMatch(value) &&
             erorrs.contains(kInvalidEmailError)) {
           setState(() {
@@ -124,11 +149,13 @@ class _SignFormState extends State<SignForm> {
           setState(() {
             erorrs.add(kEmailNullError);
           });
+          return null;
         } else if (!emailValidatorRegExp.hasMatch(value!) &&
             !erorrs.contains(kInvalidEmailError)) {
           setState(() {
             erorrs.add(kInvalidEmailError);
           });
+          return null;
         }
         return null;
       },
