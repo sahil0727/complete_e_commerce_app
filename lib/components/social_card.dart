@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../size_config.dart';
+
 class SocialCard extends StatelessWidget {
   final String icon;
   final Function press;
@@ -15,9 +16,11 @@ class SocialCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: ()=>press(),
+      onTap: () => press(),
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(10),),
+        margin: EdgeInsets.symmetric(
+          horizontal: getProportionateScreenWidth(10),
+        ),
         padding: EdgeInsets.all(
           getProportionateScreenWidth(12),
         ),
@@ -26,7 +29,7 @@ class SocialCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: const Color(0xfff5f6f9),
           border: Border.all(
-            color: Colors.black26,
+            color: Colors.black38,
             width: 0.75,
           ),
           shape: BoxShape.circle,

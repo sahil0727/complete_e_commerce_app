@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:complete_e_commerce_app/screens/complete_profile/complete_profile_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../components/custom_suffix_icon.dart';
@@ -7,84 +8,88 @@ import '../../../components/default_button.dart';
 import '../../../components/form_error.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
-import '../../forget_password/forget_password_screen.dart';
-import '../../login_success/login_success_screen.dart';
 
-class SignForm extends StatefulWidget {
-  const SignForm({Key? key}) : super(key: key);
+class SignUpForm extends StatefulWidget {
+  const SignUpForm({Key? key}) : super(key: key);
 
   @override
-  State<SignForm> createState() => _SignFormState();
+  State<SignUpForm> createState() => _SignUpFormState();
 }
 
-class _SignFormState extends State<SignForm> {
+class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
-  late List<String> erorrs = [];
-  late String email, password;
-  bool remember = false;
+  final List<String> erorrs = [];
+  String? email;
+  final password = TextEditingController();
+  final conformPassword = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: Column(
-        children: <Widget>[
-          buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
-          buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
-          Row(
-            children: [
-              Checkbox(
-                value: remember,
-                activeColor: kPrimaryColor,
-                onChanged: (value) {
-                  setState(() {
-                    remember = value!;
-                    // log('$remember');
-                  });
-                },
-              ),
-              const Text('Remember me'),
-              const Spacer(),
-              TextButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, ForgetPasswordScreen.routeName);
-                },
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 7,
-                    vertical: 3,
-                  ),
-                  child: Text(
-                    'Forget Password',
-                    style: TextStyle(decoration: TextDecoration.underline),
-                  ),
-                ),
-                style: TextButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  backgroundColor: Colors.black12,
-                  primary: kPrimaryColor,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: getProportionateScreenHeight(20)),
-          FormError(erorrs: erorrs),
-          SizedBox(height: getProportionateScreenHeight(20)),
-          DefaultButton(
-            text: 'Continue',
-            press: () {
-              log("${_formKey.currentState!.validate()}");
-              if (_formKey.currentState!.validate()) {
-                _formKey.currentState!.save();
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
-              }
-            },
-          )
-        ],
+      child: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            buildEmailFormField(),
+            SizedBox(height: getProportionateScreenWidth(30)),
+            buildPasswordFormField(),
+            SizedBox(height: getProportionateScreenWidth(30)),
+            buildConformPasswordFormField(),
+            SizedBox(height: getProportionateScreenWidth(40)),
+            FormError(erorrs: erorrs),
+            DefaultButton(
+                text: 'Continue',
+                press: () {
+                  log('${_formKey.currentState!.validate()}');
+                  if (true) {
+                    // go to complete profile page
+                    Navigator.pushNamed(
+                        context, CompleteProfileScreen.routeName);
+                  }
+                }),
+          ],
+        ),
+      ),
+    );
+  }
+
+  TextFormField buildConformPasswordFormField() {
+    return TextFormField(
+      autofocus: false,
+      controller: conformPassword,
+      // onSaved: (newValue) => conformPassword = newValue,
+      onChanged: (value) {
+        if (password.text == conformPassword.text) {
+          setState(() {
+            erorrs.remove(kMatchPassError);
+          });
+        }
+        // log('con. password : ${conformPassword.text}');
+      },
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return '';
+        } else if ((password.text != conformPassword.text) &&
+            !erorrs.contains(kMatchPassError)) {
+          setState(() {
+            erorrs.add(kMatchPassError);
+          });
+          return '';
+        } else if (password.text != conformPassword.text) {
+          return '';
+        } else {
+          return null;
+        }
+      },
+      obscureText: true,
+      decoration: const InputDecoration(
+        hintText: 'Conform password',
+        labelText: 'Re-Enter Your Password',
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSuffixIcon(
+          svgIcon: 'assets/icons/Lock.svg',
+        ),
       ),
     );
   }
@@ -92,7 +97,9 @@ class _SignFormState extends State<SignForm> {
   TextFormField buildPasswordFormField() {
     return TextFormField(
       autofocus: false,
-      onSaved: (newValue) => password = newValue!,
+      controller: password,
+      // onSaved: (newValue) => password = newValue!,
+      // after using controller don't use onSaved:(value){}
       onChanged: (value) {
         if ((value.isNotEmpty) && erorrs.contains(kPassNullError)) {
           setState(() {
@@ -102,7 +109,13 @@ class _SignFormState extends State<SignForm> {
           setState(() {
             erorrs.remove(kShortPassError);
           });
+        } else if (password.text == conformPassword.text) {
+          setState(() {
+            erorrs.remove(kMatchPassError);
+          });
         }
+        // log('password : $password');
+        // password = value;
       },
       validator: (value) {
         if ((value == null || value.isEmpty) &&
@@ -151,6 +164,7 @@ class _SignFormState extends State<SignForm> {
             erorrs.remove(kInvalidEmailError);
           });
         }
+        // log('email : $value');
       },
       validator: (value) {
         if ((value == null || value.isEmpty) &&

@@ -15,7 +15,7 @@ class FormError extends StatelessWidget {
     return Column(
       children: List.generate(
         erorrs.length,
-        (index) => fromErrorText(erorr: erorrs[index]),
+        (index) => fromErrorText(erorr: erorrs[index].toString()),
       ),
     );
   }
