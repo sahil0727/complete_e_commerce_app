@@ -42,7 +42,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 text: 'Continue',
                 press: () {
                   log('${_formKey.currentState!.validate()}');
-                  if (true) {
+                  if (_formKey.currentState!.validate()) {
                     // go to complete profile page
                     Navigator.pushNamed(
                         context, CompleteProfileScreen.routeName);

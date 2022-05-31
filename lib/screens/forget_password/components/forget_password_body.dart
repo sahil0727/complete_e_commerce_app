@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:complete_e_commerce_app/components/default_button.dart';
 import 'package:complete_e_commerce_app/components/form_error.dart';
 import 'package:complete_e_commerce_app/components/not_account_text.dart';
+import 'package:complete_e_commerce_app/screens/OTP/otp_screen.dart';
 import 'package:complete_e_commerce_app/size_config.dart';
 import 'package:flutter/material.dart';
 import '../../../components/custom_suffix_icon.dart';
@@ -126,6 +127,8 @@ class _ForgetPassFormState extends State<ForgetPassForm> {
               log('${_formKey.currentState!.validate()}');
               if (_formKey.currentState!.validate()) {
                 // do any thing here
+                Navigator.pushNamed(context, OTPScreen.routeName);
+
               }
             },
           ),

@@ -37,11 +37,19 @@ const String kAddressNullError = 'Please Enter Your Address';
 
 // inpute decoration
 final otpInputDecoration = InputDecoration(
+  counterText: "",
+  // for hide bottom text counter
   contentPadding: EdgeInsets.symmetric(
     vertical: getProportionateScreenWidth(15),
   ),
-  enabledBorder: OutlineInputBorder(
-    borderRadius: BorderRadius.circular(15),
-    borderSide: const BorderSide(color: kPrimaryColor),
-  ),
+  enabledBorder: outlineInputBorder(),
+  focusedBorder: outlineInputBorder(),
+  border: outlineInputBorder(),
 );
+
+OutlineInputBorder outlineInputBorder() {
+  return OutlineInputBorder(
+  borderRadius: BorderRadius.circular(15),
+  borderSide: const BorderSide(color: kPrimaryColor),
+);
+}

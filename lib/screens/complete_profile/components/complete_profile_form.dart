@@ -58,7 +58,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
               text: 'Continue',
               press: () {
                 log("Complete profile : ${_formKey.currentState!.validate()}");
-                if (true) {
+                if (_formKey.currentState!.validate()) {
                   // goto OTP Screen
                   Navigator.pushNamed(context, OTPScreen.routeName);
                 }
