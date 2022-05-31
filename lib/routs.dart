@@ -1,3 +1,4 @@
+import 'package:complete_e_commerce_app/screens/Details/details_screen.dart';
 import 'package:complete_e_commerce_app/screens/Home/home_screen.dart';
 import 'package:complete_e_commerce_app/screens/OTP/otp_screen.dart';
 import 'package:complete_e_commerce_app/screens/complete_profile/complete_profile_screen.dart';
@@ -20,4 +21,5 @@ final Map<String, WidgetBuilder> routes = {
   CompleteProfileScreen.routeName: (context) => const CompleteProfileScreen(),
   OTPScreen.routeName: (context) => const OTPScreen(),
   HomeScreen.routeName: (context) => const HomeScreen(),
+  DetailsScreen.routeName: (context) => const DetailsScreen(),
 };
