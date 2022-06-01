@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../../components/default_button.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
+
 class OTPForm extends StatefulWidget {
   const OTPForm({Key? key}) : super(key: key);
 

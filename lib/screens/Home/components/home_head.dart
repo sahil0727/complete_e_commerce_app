@@ -1,4 +1,5 @@
 import 'package:complete_e_commerce_app/screens/Home/components/search_field.dart';
+import 'package:complete_e_commerce_app/screens/cart/cart_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../size_config.dart';
@@ -20,7 +21,7 @@ class HomeHead extends StatelessWidget {
         children: [
           const SearchField(),
           IconButtonWithCounter(
-            press: () {},
+            press: () => Navigator.pushNamed(context, CartScreen.routeName),
             svgSrc: 'assets/icons/Cart Icon.svg',
           ),
           IconButtonWithCounter(
