@@ -1,21 +1,27 @@
 import 'package:complete_e_commerce_app/Models/product.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:complete_e_commerce_app/screens/Details/component/detail_screen_body.dart';
 import 'package:flutter/material.dart';
+import 'component/custom_appbar.dart';
 
 class DetailsScreen extends StatelessWidget {
-  static const routeName = '/details_screen';
+  static const routeName = '/details';
 
   const DetailsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final arguments =
+        ModalRoute.of(context)!.settings.arguments as ProductDetailsArguments;
+
+    // here argument is object of ProductDetails Arguments class
+    // and receive data from Navigator.pushName(...)
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(CupertinoIcons.back),
-          onPressed: () => Navigator.pop(context),
-        ),
+      backgroundColor: const Color(0xfff5f6f9),
+      appBar: PreferredSize(
+        child: CustomAppBar(rating: arguments.product.rating),
+        preferredSize: Size.fromHeight(AppBar().preferredSize.height),
       ),
+      body: DetailsScreenBody(product: arguments.product),
     );
   }
 }
@@ -26,5 +32,6 @@ class DetailsScreen extends StatelessWidget {
 
 class ProductDetailsArguments {
   final Product product;
+
   ProductDetailsArguments({required this.product});
 }
