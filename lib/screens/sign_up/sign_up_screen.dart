@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatelessWidget {
-  static String routeName = '/sign_up';
+  static const routeName = '/sign_up';
 
   const SignUpScreen({Key? key}) : super(key: key);
 

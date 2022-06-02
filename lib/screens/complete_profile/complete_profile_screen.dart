@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CompleteProfileScreen extends StatelessWidget {
-  static String routeName = "/complete_profile";
+  static const routeName = "/complete_profile";
   const CompleteProfileScreen({Key? key}) : super(key: key);
 
   @override
