@@ -10,34 +10,33 @@ class LoginScreenSuccessBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          SizedBox(height: SizeConfig.screenHeight * 0.04),
-          Image.asset(
-            'assets/images/success.png',
-            height: SizeConfig.screenHeight * 0.4,
-          ),
-          Text(
-            'Login Success',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: getProportionateScreenWidth(30),
-              color: Colors.black,
+      // height: MediaQuery.of(context).size.height,
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(height: SizeConfig.screenHeight * 0.04),
+            Image.asset(
+              'assets/images/success.png',
+              height: SizeConfig.screenHeight * 0.4,
             ),
-          ),
-          SizedBox(height: SizeConfig.screenHeight * 0.08),
-          const Spacer(),
-          SizedBox(
-            width: SizeConfig.screenWidth * 0.6,
-            child: DefaultButton(
-              text: 'Back to Home',
-              press: () => Navigator.pushNamed(context, HomeScreen.routeName),
+            Text(
+              'Login Success',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: getProportionateScreenWidth(30),
+                color: Colors.black,
+              ),
             ),
-          ),
-          const Spacer(),
-        ],
+            SizedBox(height: SizeConfig.screenHeight * 0.15),
+            SizedBox(
+              width: SizeConfig.screenWidth * 0.6,
+              child: DefaultButton(
+                text: 'Back to Home',
+                press: () => Navigator.pushNamed(context, HomeScreen.routeName),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

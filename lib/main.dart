@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Xyron',
       theme: theme(),
       // home: const SplashScreen(),
+
       initialRoute: SplashScreen.routeName,
       routes: routes,
 
